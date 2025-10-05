@@ -19,7 +19,14 @@
   justify-content: space-between;
 }
 
-.task-delete {
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-delete,
+.task-edit {
   width: 35px;
   height: 35px;
   border-radius: 100%;
@@ -30,16 +37,19 @@
   transition: all 0.3s ease-in-out;
 }
 
-.task-delete:hover {
+.task-delete:hover,
+.task-edit:hover {
   background-color: #ebebeb;
 }
 
-.delete-icon {
+.delete-icon,
+.edit-icon {
   width: 20px;
   opacity: 50%;
   transition: all 0.3s ease-in-out;
 }
 
-.task-delete:hover .delete-icon {
+.task-delete:hover .delete-icon,
+.task-edit:hover .edit-icon {
   opacity: 80%;
 }

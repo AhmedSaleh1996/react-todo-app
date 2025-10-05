@@ -2,11 +2,10 @@ import React from "react";
 import "./TaskCol.css";
 import TaskCard from "./TaskCard";
 
-const TaskCol = ({ title, icon, tasks, status, handleDelete }) => {
+const TaskCol = ({ title, icon, tasks, status, handleDelete, handleEdit }) => {
   return (
     <section className="task-col">
       <h2 className="task-col-heading">
-        <img className="task-col-icon" src={icon} alt="" />
         {title}
       </h2>
 
@@ -18,6 +17,7 @@ const TaskCol = ({ title, icon, tasks, status, handleDelete }) => {
               title={task.task}
               tags={task.tags}
               handleDelete={handleDelete}
+              handleEdit={handleEdit}
               index={index}
             />
           )

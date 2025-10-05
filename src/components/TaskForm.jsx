@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./TaskForm.css";
 import Tag from "./Tag";
 
-const TaskForm = ({ setTasks }) => {
+const TaskForm = ({ addTask, editTask }) => {
   const [taskData, setTaskData] = useState({
     task: "",
     status: "todo",
     tags: [],
   });
+
+  useEffect(() => {
+    if (editTask) {
+      setTaskData(editTask);
+    }
+  }, [editTask]);
 
   const checkTag = (tag) => {
     return taskData.tags.some((item) => item === tag);
@@ -38,9 +44,7 @@ const TaskForm = ({ setTasks }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(taskData);
-    setTasks((prev) => {
-      return [...prev, taskData];
-    });
+    addTask(taskData);
 
     setTaskData({
       task: "",
@@ -91,12 +95,12 @@ const TaskForm = ({ setTasks }) => {
               className="task-status"
               onChange={handleChange}
             >
-              <option value="todo">To do</option>
-              <option value="doing">Doing</option>
-              <option value="done">Done</option>
+              <option value="todo">To Do</option>
+              <option value="inprogress">In Progress</option>
+              <option value="completed">Completed</option>
             </select>
             <button type="submit" className="task-submit">
-              + Add Task
+              {editTask ? "Update Task" : "+ Add Task"}
             </button>
           </div>
         </div>

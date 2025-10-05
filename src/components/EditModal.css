@@ -1,0 +1,125 @@
+/* خلفية شفافة تغطي الشاشة بالكامل */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* الصندوق الأبيض اللي فيه بيانات التعديل */
+.modal-content {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  width: 450px;
+  max-width: 90%;
+  animation: popupFade 0.25s ease;
+}
+
+/* العنوان */
+.modal-content h2 {
+  margin-bottom: 18px;
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* الإدخال */
+.modal-content .task-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 15px;
+  transition: 0.2s ease;
+}
+
+.modal-content .task-input:focus {
+  border-color: #42acdc;
+  box-shadow: 0 0 0 3px rgba(66, 172, 220, 0.2);
+}
+
+/* منطقة التاجز والستيتس */
+.task-form-bottom-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* select */
+.task-status {
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  padding: 8px 10px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.task-status:focus {
+  border-color: #42acdc;
+}
+
+/* أزرار Update و Cancel */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.update-btn,
+.cancel-btn {
+  border: none;
+  outline: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.update-btn {
+  background-color: #6457f9;
+  color: #fff;
+}
+
+.update-btn:hover {
+  opacity: 50%;
+}
+
+.cancel-btn {
+  background-color: #eee;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #ddd;
+}
+
+/* أنميشن خفيفة */
+@keyframes popupFade {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
