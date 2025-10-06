@@ -16,28 +16,42 @@ const App = () => {
   });
 
   const [editTask, setEditTask] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); // حالة التحميل
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
   const addTask = ({ status, task, tags }) => {
-    const currentDate = new Date();
-    const formattedDate = currentDate.toLocaleString("en-GB", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    setIsLoading(true); // بدء التحميل
 
-    setTasks((prev) => [
-      ...prev,
-      { status, task, tags, createdAt: formattedDate },
-    ]);
+    setTimeout(() => {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleString("en-GB", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      setTasks((prev) => [
+        ...prev,
+        { status, task, tags, createdAt: formattedDate },
+      ]);
+
+      setIsLoading(false); // إيقاف التحميل
+    }, 2000);
   };
 
   const handleDelete = (index) => {
+    const task = tasks[index];
+
+    if (task.status === "inprogress") {
+      alert("You cannot delete a task that is in progress.");
+      return;
+    }
+
     if (window.confirm("Are you sure you want to delete this task?")) {
       setTasks((prev) => prev.filter((_, i) => i !== index));
     }
@@ -87,6 +101,15 @@ const App = () => {
           onUpdate={handleUpdate}
         />
       )}
+
+      {/* شاشة التحميل */}
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="loading-spinner"></div>
+          <p className="loading-text">Adding your task...</p>
+        </div>
+      )}
+
       <ToastContainer
         position="top-right"
         autoClose={3000}

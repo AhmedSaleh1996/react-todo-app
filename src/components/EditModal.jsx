@@ -4,27 +4,36 @@ import "./EditModal.css";
 
 const EditModal = ({ task, onUpdate, onClose }) => {
   const [editedTask, setEditedTask] = useState({ ...task });
+  const [error, setError] = useState("");
 
-  const checkTag = (tag) => {
-    return editedTask.tags?.some((item) => item === tag);
-  };
+  const checkTag = (tag) => editedTask.tags?.includes(tag);
 
   const selectTag = (tag) => {
-    if (editedTask.tags?.some((item) => item === tag)) {
-      const filteredTags = editedTask.tags.filter((item) => item !== tag);
-      setEditedTask((prev) => ({ ...prev, tags: filteredTags }));
+    if (checkTag(tag)) {
+      setEditedTask((prev) => ({
+        ...prev,
+        tags: prev.tags.filter((item) => item !== tag),
+      }));
     } else {
-      setEditedTask((prev) => ({ ...prev, tags: [...(prev.tags || []), tag] }));
+      setEditedTask((prev) => ({
+        ...prev,
+        tags: [...(prev.tags || []), tag],
+      }));
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedTask((prev) => ({ ...prev, [name]: value }));
+    if (name === "task" && value.trim() !== "") setError("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!editedTask.task || editedTask.task.trim() === "") {
+      setError("Task field cannot be empty");
+      return;
+    }
     onUpdate(editedTask);
   };
 
@@ -33,37 +42,30 @@ const EditModal = ({ task, onUpdate, onClose }) => {
       <div className="modal-content">
         <h2>Edit Task</h2>
         <form onSubmit={handleSubmit}>
+          {error && (
+            <p className="error-text">
+              <span className="error-icon">!</span> {error}
+            </p>
+          )}
           <input
             type="text"
             name="task"
             value={editedTask.task}
-            className="task-input"
+            className={`task-input ${error ? "error" : ""}`}
             placeholder="Enter your task"
             onChange={handleChange}
           />
 
           <div className="task-form-bottom-line">
             <div>
-              <Tag
-                tagName="HTML"
-                selectTag={selectTag}
-                selected={checkTag("HTML")}
-              />
-              <Tag
-                tagName="CSS"
-                selectTag={selectTag}
-                selected={checkTag("CSS")}
-              />
-              <Tag
-                tagName="JavaScript"
-                selectTag={selectTag}
-                selected={checkTag("JavaScript")}
-              />
-              <Tag
-                tagName="React"
-                selectTag={selectTag}
-                selected={checkTag("React")}
-              />
+              {["HTML", "CSS", "JavaScript", "React"].map((tag) => (
+                <Tag
+                  key={tag}
+                  tagName={tag}
+                  selectTag={selectTag}
+                  selected={checkTag(tag)}
+                />
+              ))}
             </div>
 
             <div className="task-status-wrapper">

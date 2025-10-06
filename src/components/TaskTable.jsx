@@ -20,7 +20,7 @@ const TaskTable = ({ tasks, handleDelete, handleEdit }) => {
           {tasks.map((task, index) => (
             <tr key={index}>
               <td>{task.task}</td>
-              <td>{task.tags.join(", ")}</td>
+              <td>{Array.isArray(task.tags) ? task.tags.join(", ") : ""}</td>
               <td>{task.status}</td>
               <td>{task.createdAt}</td>
               <td>
