@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import TaskForm from "./components/TaskForm";
 import TaskBoard from "./components/TaskBoard";
 import EditModal from "./components/EditModal";
+import PopupTaskForm from "./components/PopupTaskForm";
+import Login from "./components/Login";
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
+
   const [tasks, setTasks] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("tasks")) || [];
@@ -16,15 +21,14 @@ const App = () => {
   });
 
   const [editTask, setEditTask] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // حالة التحميل
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
   const addTask = ({ status, task, tags }) => {
-    setIsLoading(true); // بدء التحميل
-
+    setIsLoading(true);
     setTimeout(() => {
       const currentDate = new Date();
       const formattedDate = currentDate.toLocaleString("en-GB", {
@@ -40,31 +44,26 @@ const App = () => {
         { status, task, tags, createdAt: formattedDate },
       ]);
 
-      setIsLoading(false); // إيقاف التحميل
+      setIsLoading(false);
     }, 2000);
   };
 
   const handleDelete = (index) => {
     const task = tasks[index];
-
     if (task.status === "inprogress") {
       alert("You cannot delete a task that is in progress.");
       return;
     }
-
     if (window.confirm("Are you sure you want to delete this task?")) {
       setTasks((prev) => prev.filter((_, i) => i !== index));
     }
   };
 
-  const handleEdit = (index) => {
-    setEditTask({ ...tasks[index], index });
-  };
+  const handleEdit = (index) => setEditTask({ ...tasks[index], index });
 
   const handleUpdate = (updatedTask) => {
     const newTasks = [...tasks];
     const oldTask = tasks[updatedTask.index];
-
     newTasks[updatedTask.index] = {
       task: updatedTask.task,
       status: updatedTask.status,
@@ -75,24 +74,35 @@ const App = () => {
     setEditTask(null);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <>
+        <Login onLogin={() => setIsLoggedIn(true)} />
+        <ToastContainer position="top-right" autoClose={3000} />
+      </>
+    );
+  }
+
   return (
     <div className="app">
-      <TaskForm addTask={addTask} />
+      <div className="logout-container">
+        <button className="logout-btn" onClick={handleLogout}>
+          <i className="fa-solid fa-arrow-right-from-bracket"></i>
+          Logout
+        </button>
+      </div>
 
+      <PopupTaskForm addTask={addTask} editTask={editTask} />
       <TaskBoard
         tasks={tasks}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
       />
-
-      {tasks.length === 0 && (
-        <div className="empty-state">
-          <p>
-            <span>📦</span> No tasks yet – your board is clear!
-          </p>
-          <small>Start by adding your first task above</small>
-        </div>
-      )}
 
       {editTask && (
         <EditModal
@@ -102,7 +112,6 @@ const App = () => {
         />
       )}
 
-      {/* شاشة التحميل */}
       {isLoading && (
         <div className="loading-overlay">
           <div className="loading-spinner"></div>
@@ -110,17 +119,7 @@ const App = () => {
         </div>
       )}
 
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

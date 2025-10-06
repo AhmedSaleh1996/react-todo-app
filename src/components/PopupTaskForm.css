@@ -1,0 +1,198 @@
+/* ===== زرار فتح الـ Popup ===== */
+.open-popup-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  transition: transform 0.12s ease, background 0.12s ease;
+  flex-shrink: 0;
+}
+
+.open-popup-btn:hover {
+  transform: translateY(-2px);
+  background: #0056d2;
+}
+
+/* ===== الخلفية الشفافة ===== */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* ===== صندوق الـ Popup ===== */
+.popup-form-wrapper {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  width: 450px;
+  max-width: 90%;
+  animation: popupFade 0.25s ease;
+  position: relative;
+}
+
+/* ===== العنوان ===== */
+.popup-form-wrapper h2 {
+  margin-bottom: 18px;
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ===== الإدخال ===== */
+.popup-form-wrapper .task-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 15px;
+  transition: 0.2s ease;
+}
+
+.popup-form-wrapper .task-input:focus {
+  border-color: #42acdc;
+  box-shadow: 0 0 0 3px rgba(66, 172, 220, 0.2);
+}
+
+/* ===== منطقة التاجز والستيتس ===== */
+.task-form-bottom-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+/* ===== select ===== */
+.task-status-wrapper {
+  position: relative;
+  width: 140px;
+}
+
+.task-status {
+  width: 100%;
+  height: 40px;
+  padding: 10px 35px 10px 15px;
+  font-size: 16px;
+  font-weight: 600 !important;
+  color: #000;
+  border: 1px solid #999;
+  border-radius: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.3s ease;
+}
+
+.task-status:hover {
+  border-color: #666;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.task-status-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 6px;
+  height: 6px;
+  pointer-events: none;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: 2px solid #555;
+  border-bottom: 2px solid #555;
+}
+
+/* ===== أزرار الـ Popup ===== */
+.popup-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.update-btn {
+  background-color: #6457f9;
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.update-btn:hover {
+  opacity: 0.8;
+}
+
+.cancel-btn {
+  background-color: #eee;
+  color: #333;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #ddd;
+}
+
+/* ===== أنميشن ===== */
+@keyframes popupFade {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== شريط البحث وزر الإضافة ===== */
+.task-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* يجعلهم في منتصف الصفحة أفقيًا */
+  padding: 20px 8%;
+  margin: 0 auto 10px;
+  gap: 15px;
+  max-width: 1000px; /* نفس عرض المحتوى تقريبا */
+}
+
+
+/* ===== مربع البحث ===== */
+.task-search-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.task-search-input:focus {
+  outline: none;
+  border-color: #42acdc;
+  box-shadow: 0 0 0 3px rgba(66, 172, 220, 0.2);
+}
