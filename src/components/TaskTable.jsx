@@ -12,6 +12,7 @@ const TaskTable = ({ tasks, handleDelete, handleEdit }) => {
             <th>Task</th>
             <th>Tags</th>
             <th>Status</th>
+            <th>Created At</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -21,6 +22,7 @@ const TaskTable = ({ tasks, handleDelete, handleEdit }) => {
               <td>{task.task}</td>
               <td>{task.tags.join(", ")}</td>
               <td>{task.status}</td>
+              <td>{task.createdAt}</td>
               <td>
                 <div className="task-actions">
                   <button

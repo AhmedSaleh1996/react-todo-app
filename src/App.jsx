@@ -37,14 +37,10 @@ const App = () => {
     ]);
   };
 
-  const handleDelete = (taskIndex) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this task?"
-    );
-    if (!confirmDelete) return; // لو ضغط Cancel، ما يحصلش أي حاجة
-
-    const newTask = tasks.filter((_, index) => index !== taskIndex);
-    setTasks(newTask);
+  const handleDelete = (index) => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      setTasks((prev) => prev.filter((_, i) => i !== index));
+    }
   };
 
   const handleEdit = (index) => {
@@ -53,10 +49,13 @@ const App = () => {
 
   const handleUpdate = (updatedTask) => {
     const newTasks = [...tasks];
+    const oldTask = tasks[updatedTask.index];
+
     newTasks[updatedTask.index] = {
       task: updatedTask.task,
       status: updatedTask.status,
       tags: updatedTask.tags || [],
+      createdAt: oldTask.createdAt,
     };
     setTasks(newTasks);
     setEditTask(null);
