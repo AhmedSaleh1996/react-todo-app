@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import "./TaskForm.css";
 import Tag from "./Tag";
 
@@ -43,7 +44,18 @@ const TaskForm = ({ addTask, editTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(taskData);
+
+    // Validation
+    if (taskData.task.trim() === "") {
+      toast.error("Please enter a task name!");
+      return;
+    }
+
+    if (taskData.tags.length === 0) {
+      toast.error("Please select at least one tag!");
+      return;
+    }
+
     addTask(taskData);
 
     setTaskData({
@@ -65,7 +77,7 @@ const TaskForm = ({ addTask, editTask }) => {
           onChange={handleChange}
         />
         <div className="task-form-bottom-line">
-          <div>
+          <div className="tags-wrapper">
             <Tag
               tagName="HTML"
               selectTag={selectTag}
@@ -88,17 +100,20 @@ const TaskForm = ({ addTask, editTask }) => {
             />
           </div>
 
-          <div>
-            <select
-              name="status"
-              value={taskData.status}
-              className="task-status"
-              onChange={handleChange}
-            >
-              <option value="todo">To Do</option>
-              <option value="inprogress">In Progress</option>
-              <option value="completed">Completed</option>
-            </select>
+          <div className="status-submit-wrapper">
+            <div className="task-status-wrapper">
+              <select
+                name="status"
+                value={taskData.status}
+                className="task-status"
+                onChange={handleChange}
+              >
+                <option value="todo">To Do</option>
+                <option value="inprogress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+
             <button type="submit" className="task-submit">
               {editTask ? "Update Task" : "+ Add Task"}
             </button>

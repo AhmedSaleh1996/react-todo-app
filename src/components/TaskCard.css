@@ -1,10 +1,29 @@
 .task-card {
   width: 100%;
   min-height: 100px;
-  border: 1px solid #dcdcdc;
   border-radius: 10px;
   padding: 15px;
   margin: 15px 0;
+  background: #fff;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.task-card {
+  position: relative;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.task-date {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 15px;
+  color: #888;
+  font-weight: 500;
 }
 
 .task-text {

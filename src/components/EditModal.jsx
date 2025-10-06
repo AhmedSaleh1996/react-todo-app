@@ -66,7 +66,7 @@ const EditModal = ({ task, onUpdate, onClose }) => {
               />
             </div>
 
-            <div>
+            <div className="task-status-wrapper">
               <select
                 name="status"
                 value={editedTask.status}

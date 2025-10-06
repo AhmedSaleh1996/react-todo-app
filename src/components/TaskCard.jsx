@@ -4,9 +4,17 @@ import Tag from "./Tag";
 import deleteIcon from "../assets/delete.png";
 import editIcon from "../assets/edit-text.png";
 
-const TaskCard = ({ title, tags, handleDelete, handleEdit, index }) => {
+const TaskCard = ({
+  title,
+  tags,
+  handleDelete,
+  handleEdit,
+  index,
+  createdAt,
+}) => {
   return (
     <article className="task-card">
+      <p className="task-date">{createdAt}</p>
       <p className="task-text">{title}</p>
 
       <div className="task-card-bottom-line">

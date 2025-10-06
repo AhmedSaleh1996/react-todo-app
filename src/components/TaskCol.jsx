@@ -5,9 +5,7 @@ import TaskCard from "./TaskCard";
 const TaskCol = ({ title, icon, tasks, status, handleDelete, handleEdit }) => {
   return (
     <section className="task-col">
-      <h2 className="task-col-heading">
-        {title}
-      </h2>
+      <h2 className="task-col-heading">{title}</h2>
 
       {tasks.map(
         (task, index) =>
@@ -19,6 +17,7 @@ const TaskCol = ({ title, icon, tasks, status, handleDelete, handleEdit }) => {
               handleDelete={handleDelete}
               handleEdit={handleEdit}
               index={index}
+              createdAt={task.createdAt}
             />
           )
       )}
